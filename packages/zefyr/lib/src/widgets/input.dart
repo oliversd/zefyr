@@ -180,4 +180,17 @@ class InputConnectionController implements TextInputClient {
       _sentRemoteValues.clear();
     }
   }
+
+  @override
+  // TODO: implement currentAutofillScope
+  AutofillScope get currentAutofillScope => throw UnimplementedError();
+
+  @override
+  // TODO: implement currentTextEditingValue
+  TextEditingValue get currentTextEditingValue => throw UnimplementedError();
+
+  @override
+  void showAutocorrectionPromptRect(int start, int end) {
+    // TODO: implement showAutocorrectionPromptRect
+  }
 }
