@@ -158,9 +158,9 @@ class RenderEditableProxyBox extends RenderBox
     }
     if (!_selection.isCollapsed) return false;
 
-    final int start = node.documentOffset;
-    final int end = start + node.length;
-    final int caretOffset = _selection.extentOffset;
+    final start = node.documentOffset;
+    final end = start + node.length;
+    final caretOffset = _selection.extentOffset;
     return caretOffset >= start && caretOffset < end;
   }
 
@@ -327,18 +327,18 @@ abstract class RenderEditableBox extends RenderBox {
   TextSelection getLocalSelection(TextSelection documentSelection) {
     if (!intersectsWithSelection(documentSelection)) return null;
 
-    int nodeBase = node.documentOffset;
-    int nodeExtent = nodeBase + node.length;
-    int base = math.max(0, documentSelection.baseOffset - nodeBase);
-    int extent =
+    var nodeBase = node.documentOffset;
+    var nodeExtent = nodeBase + node.length;
+    var base = math.max(0, documentSelection.baseOffset - nodeBase);
+    var extent =
         math.min(documentSelection.extentOffset, nodeExtent) - nodeBase;
     return documentSelection.copyWith(baseOffset: base, extentOffset: extent);
   }
 
   /// Returns `true` if this box intersects with document [selection].
   bool intersectsWithSelection(TextSelection selection) {
-    final int base = node.documentOffset;
-    final int extent = base + node.length;
+    final base = node.documentOffset;
+    final extent = base + node.length;
     return base <= selection.extentOffset && selection.baseOffset <= extent;
   }
 }

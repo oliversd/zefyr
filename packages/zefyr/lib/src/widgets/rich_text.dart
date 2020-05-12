@@ -66,7 +66,8 @@ class RenderZefyrParagraph extends RenderParagraph
           textScaleFactor: textScaleFactor,
           maxLines: maxLines,
         );
-
+  
+  @override
   LineNode node;
 
   @override
@@ -79,10 +80,10 @@ class RenderZefyrParagraph extends RenderParagraph
   TextSelection getLocalSelection(TextSelection documentSelection) {
     if (!intersectsWithSelection(documentSelection)) return null;
 
-    int nodeBase = node.documentOffset;
-    int nodeExtent = nodeBase + node.length;
-    int base = math.max(0, documentSelection.baseOffset - nodeBase);
-    int extent =
+    var nodeBase = node.documentOffset;
+    var nodeExtent = nodeBase + node.length;
+    var base = math.max(0, documentSelection.baseOffset - nodeBase);
+    var extent =
         math.min(documentSelection.extentOffset, nodeExtent) - nodeBase;
     return documentSelection.copyWith(baseOffset: base, extentOffset: extent);
   }
@@ -122,7 +123,7 @@ class RenderZefyrParagraph extends RenderParagraph
   // edge-case with our TextSpan objects not having last line-break character.
   @override
   List<ui.TextBox> getEndpointsForSelection(TextSelection selection) {
-    TextSelection local = getLocalSelection(selection);
+    var local = getLocalSelection(selection);
     if (local.isCollapsed) {
       final caret = CursorPainter.buildPrototype(preferredLineHeight);
       final offset = getOffsetForCaret(local.extent, caret);
@@ -137,8 +138,8 @@ class RenderZefyrParagraph extends RenderParagraph
       ];
     }
 
-    int isBaseShifted = 0;
-    bool isExtentShifted = false;
+    var isBaseShifted = 0;
+    var isExtentShifted = false;
     if (local.baseOffset == node.length - 1 && local.baseOffset > 0) {
       // Since we exclude last line-break from rendered TextSpan we have to
       // handle end-of-line selection explicitly.
@@ -201,8 +202,8 @@ class RenderZefyrParagraph extends RenderParagraph
   /// Returns `true` if this paragraph intersects with document [selection].
   @override
   bool intersectsWithSelection(TextSelection selection) {
-    final int base = node.documentOffset;
-    final int extent = base + node.length;
+    final base = node.documentOffset;
+    final extent = base + node.length;
     return base <= selection.extentOffset && selection.baseOffset <= extent;
   }
 
@@ -214,8 +215,8 @@ class RenderZefyrParagraph extends RenderParagraph
       _selectionRects = null;
     }
     _selectionRects ??= getBoxesForSelection(getLocalSelection(selection));
-    final Paint paint = Paint()..color = selectionColor;
-    for (ui.TextBox box in _selectionRects) {
+    final paint = Paint()..color = selectionColor;
+    for (var box in _selectionRects) {
       context.canvas.drawRect(box.toRect().shift(offset), paint);
     }
     _lastPaintedSelection = selection;

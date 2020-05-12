@@ -104,7 +104,7 @@ class ZefyrRenderContext extends ChangeNotifier {
   RenderEditableProxyBox closestBoxForGlobalPoint(Offset point) {
     assert(!_disposed);
     if (_activeBoxes.isEmpty) return null;
-    RenderEditableProxyBox box = boxForGlobalPoint(point);
+    var box = boxForGlobalPoint(point);
     if (box != null) return box;
 
     box = _activeBoxes.firstWhere((p) {

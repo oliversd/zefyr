@@ -33,7 +33,7 @@ class ZefyrController extends ChangeNotifier {
 
   /// Zefyr document managed by this controller.
   NotusDocument get document => _document;
-  NotusDocument _document;
+  final NotusDocument _document;
 
   /// Currently selected text within the [document].
   TextSelection get selection => _selection;
@@ -128,7 +128,7 @@ class ZefyrController extends ChangeNotifier {
           delta.length <= 2 &&
           delta.last.isInsert) {
         // Apply it.
-        Delta retainDelta = Delta()
+        var retainDelta = Delta()
           ..retain(index)
           ..retain(text.length, toggledStyles.toJson());
         document.compose(retainDelta, ChangeSource.local);
@@ -144,11 +144,11 @@ class ZefyrController extends ChangeNotifier {
       } else {
         // need to transform selection position in case actual delta
         // is different from user's version (in deletes and inserts).
-        Delta user = Delta()
+        var user = Delta()
           ..retain(index)
           ..insert(text)
           ..delete(length);
-        int positionDelta = getPositionDelta(user, delta);
+        var positionDelta = getPositionDelta(user, delta);
         _updateSelectionSilent(
           selection.copyWith(
             baseOffset: selection.baseOffset + positionDelta,
@@ -188,8 +188,8 @@ class ZefyrController extends ChangeNotifier {
 
   /// Formats current selection with [attribute].
   void formatSelection(NotusAttribute attribute) {
-    int index = _selection.start;
-    int length = _selection.end - index;
+    var index = _selection.start;
+    var length = _selection.end - index;
     formatText(index, length, attribute);
   }
 
@@ -198,8 +198,8 @@ class ZefyrController extends ChangeNotifier {
   /// If nothing is selected but we've toggled an attribute,
   ///  we also merge those in our style before returning.
   NotusStyle getSelectionStyle() {
-    int start = _selection.start;
-    int length = _selection.end - start;
+    var start = _selection.start;
+    var length = _selection.end - start;
     var lineStyle = _document.collectStyle(start, length);
 
     lineStyle = lineStyle.mergeAll(toggledStyles);

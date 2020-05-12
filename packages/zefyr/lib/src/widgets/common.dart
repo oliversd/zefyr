@@ -67,6 +67,15 @@ class _ZefyrLineState extends State<ZefyrLine> {
         case TargetPlatform.fuchsia:
           cursorColor = theme.cursorColor;
           break;
+        case TargetPlatform.linux:
+          // TODO: Handle this case.
+          break;
+        case TargetPlatform.macOS:
+          // TODO: Handle this case.
+          break;
+        case TargetPlatform.windows:
+          // TODO: Handle this case.
+          break;
       }
 
       content = EditableBox(
@@ -98,14 +107,14 @@ class _ZefyrLineState extends State<ZefyrLine> {
   }
 
   void bringIntoView(BuildContext context) {
-    ScrollableState scrollable = Scrollable.of(context);
+    var scrollable = Scrollable.of(context);
     final object = context.findRenderObject();
     assert(object.attached);
-    final RenderAbstractViewport viewport = RenderAbstractViewport.of(object);
+    final viewport = RenderAbstractViewport.of(object);
     assert(viewport != null);
 
-    final double offset = scrollable.position.pixels;
-    double target = viewport.getOffsetToReveal(object, 0.0).offset;
+    final offset = scrollable.position.pixels;
+    var target = viewport.getOffsetToReveal(object, 0.0).offset;
     if (target - offset < 0.0) {
       scrollable.position.jumpTo(target);
       return;
@@ -118,7 +127,7 @@ class _ZefyrLineState extends State<ZefyrLine> {
 
   TextSpan buildText(BuildContext context) {
     final theme = ZefyrTheme.of(context);
-    final List<TextSpan> children = widget.node.children
+    final children = widget.node.children
         .map((node) => _segmentToTextSpan(node, theme))
         .toList(growable: false);
     return TextSpan(style: widget.style, children: children);
@@ -135,7 +144,7 @@ class _ZefyrLineState extends State<ZefyrLine> {
   }
 
   TextStyle _getTextStyle(NotusStyle style, ZefyrThemeData theme) {
-    TextStyle result = TextStyle();
+    var result = TextStyle();
     if (style.containsSame(NotusAttribute.bold)) {
       result = result.merge(theme.attributeTheme.bold);
     }
