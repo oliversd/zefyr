@@ -598,6 +598,7 @@ class _SelectionToolbarState extends State<_SelectionToolbar> {
       midpoint,
       endpoints,
       widget.selectionOverlay,
+      ClipboardStatusNotifier(value: ClipboardStatus.pasteable),
     );
     return CompositedTransformFollower(
       link: block.layerLink,
